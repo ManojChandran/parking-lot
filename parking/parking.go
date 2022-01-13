@@ -32,7 +32,7 @@ type Parking interface {
 	SetParkingCompany(string, string)
 	GetParkingTicket(string, string) (Ticket, error)
 	GetVehicle(string) string
-	RemoveVehicle(string)
+	VehicleExit(string)
 	DisplayParking()
 }
 
@@ -103,11 +103,27 @@ func (p *parking) GetVehicle(id string) string {
 	return "no vehicle"
 }
 
-func (p *parking) RemoveVehicle(id string) {
+func (p *parking) VehicleExit(id string) {
 	t := Ticket{ID: id}
-	delete(p.carParking, t)
-	delete(p.vanParking, t)
-	delete(p.bikeParking, t)
+
+	car, ok := p.carParking[t]
+	if ok {
+		car.CarExitTime()
+	}
+
+	van, ok := p.vanParking[t]
+	if ok {
+		van.VanExitTime()
+	}
+
+	bike, ok := p.bikeParking[t]
+	if ok {
+		bike.BikeExitTime()
+	}
+
+	//	delete(p.carParking, t)
+	//	delete(p.vanParking, t)
+	//	delete(p.bikeParking, t)
 }
 
 func (p *parking) DisplayParking() {

@@ -11,7 +11,7 @@ Design a parking lot management software, which help to manage a parking space.
 6) Motor bike parking price.                                                     </br>
 7) Know parking space availability.                                              </br>
 8) Get ticket for parking vehicle.                                               </br>
-9) Tag ticket to corresponding parking type.                                      </br>
+9) Tag ticket to corresponding parking type.                                     </br>
 10) Ticket should have entry time and vehicle type.                              </br>
 11) Payment calculated on exit, based on entry time and vehicle parking price.   </br>
 

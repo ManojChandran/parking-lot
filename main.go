@@ -35,9 +35,9 @@ func main() {
 	u := p.GetVehicle(t2.ID)
 	fmt.Println(v, u)
 	p.DisplayParking()
-	p.RemoveVehicle(t2.ID)
-	p.RemoveVehicle(v1.ID)
-	p.RemoveVehicle(b2.ID)
+	p.VehicleExit(t2.ID)
+	p.VehicleExit(v1.ID)
+	p.VehicleExit(b2.ID)
 	p.DisplayParking()
 
 }
