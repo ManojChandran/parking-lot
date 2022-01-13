@@ -26,6 +26,11 @@ func NewCarSlot() (*Slot, error) {
 	return &Slot{}, nil
 }
 
+// CarCount returns no of car
+func CarCount() int {
+	return carInstanceCnt
+}
+
 // SetCarSlot method will set vehicle detailsS
 func (s *Slot) SetCarSlot(vNumber string) {
 	entryTime := time.Now().Format(time.RFC850)
@@ -42,6 +47,18 @@ func NewVanSlot() (*Slot, error) {
 	return &Slot{}, nil
 }
 
+// VanCount returns no of van
+func VanCount() int {
+	return vanInstanceCnt
+}
+
+// SetVanSlot method will set vehicle detailsS
+func (s *Slot) SetVanSlot(vNumber string) {
+	entryTime := time.Now().Format(time.RFC850)
+	s.VehicleNumber = vNumber
+	s.entryTime = entryTime
+}
+
 // NewBikeSlot will construct slot
 func NewBikeSlot() (*Slot, error) {
 	if bikeInstanceCnt < 2 {
@@ -51,17 +68,14 @@ func NewBikeSlot() (*Slot, error) {
 	return &Slot{}, nil
 }
 
-// CarCount returns no of car
-func CarCount() int {
-	return carInstanceCnt
-}
-
-// VanCount returns no of van
-func VanCount() int {
-	return vanInstanceCnt
-}
-
 // BikeCount returns no of bike
 func BikeCount() int {
 	return bikeInstanceCnt
+}
+
+// SetBikeSlot method will set vehicle detailsS
+func (s *Slot) SetBikeSlot(vNumber string) {
+	entryTime := time.Now().Format(time.RFC850)
+	s.VehicleNumber = vNumber
+	s.entryTime = entryTime
 }
