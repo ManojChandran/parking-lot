@@ -33,9 +33,6 @@ type Parking interface {
 	GetParkingTicket(string, string) (Ticket, error)
 	GetVehicle(string) string
 	RemoveVehicle(string)
-	//	AddParkingEntrance(string, string)
-	//	AddParkingFloor(int, int)
-	// GetParkingTicket()
 	DisplayParking()
 }
 
