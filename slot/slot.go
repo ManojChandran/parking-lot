@@ -9,8 +9,8 @@ import (
 type Slot struct {
 	slotID        string
 	VehicleNumber string
-	entryTime     string
-	exitTime      string
+	entryTime     time.Time
+	exitTime      time.Time
 	slotPrice     float32
 	pay           float32
 }
@@ -35,15 +35,17 @@ func CarCount() int {
 
 // SetCarSlot method will set vehicle detailsS
 func (s *Slot) SetCarSlot(vNumber string) {
-	entryTime := time.Now().Format(time.RFC850)
+	entryTime := time.Now()
 	s.VehicleNumber = vNumber
 	s.entryTime = entryTime
 }
 
-// CarExitTime method will set vehicle detailsS
-func (s *Slot) CarExitTime() {
-	exitTime := time.Now().Format(time.RFC850)
+// CarExit method will set vehicle detailsS
+func (s *Slot) CarExit() {
+	exitTime := time.Now()
 	s.exitTime = exitTime
+	diff := s.exitTime.Sub(s.entryTime)
+	s.pay = s.slotPrice * float32(diff)
 }
 
 // NewVanSlot will construct slot
@@ -62,15 +64,17 @@ func VanCount() int {
 
 // SetVanSlot method will set vehicle detailsS
 func (s *Slot) SetVanSlot(vNumber string) {
-	entryTime := time.Now().Format(time.RFC850)
+	entryTime := time.Now()
 	s.VehicleNumber = vNumber
 	s.entryTime = entryTime
 }
 
-// VanExitTime method will set vehicle detailsS
-func (s *Slot) VanExitTime() {
-	exitTime := time.Now().Format(time.RFC850)
+// VanExit method will set vehicle detailsS
+func (s *Slot) VanExit() {
+	exitTime := time.Now()
 	s.exitTime = exitTime
+	diff := s.exitTime.Sub(s.entryTime)
+	s.pay = s.slotPrice * float32(diff)
 }
 
 // NewBikeSlot will construct slot
@@ -89,13 +93,15 @@ func BikeCount() int {
 
 // SetBikeSlot method will set vehicle detailsS
 func (s *Slot) SetBikeSlot(vNumber string) {
-	entryTime := time.Now().Format(time.RFC850)
+	entryTime := time.Now()
 	s.VehicleNumber = vNumber
 	s.entryTime = entryTime
 }
 
-// BikeExitTime method will set vehicle detailsS
-func (s *Slot) BikeExitTime() {
-	exitTime := time.Now().Format(time.RFC850)
+// BikeExit method will set vehicle detailsS
+func (s *Slot) BikeExit() {
+	exitTime := time.Now()
 	s.exitTime = exitTime
+	diff := s.exitTime.Sub(s.entryTime)
+	s.pay = s.slotPrice * float32(diff)
 }

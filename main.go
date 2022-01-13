@@ -39,5 +39,7 @@ func main() {
 	p.VehicleExit(v1.ID)
 	p.VehicleExit(b2.ID)
 	p.DisplayParking()
+	p.PayParking(b2.ID)
+	p.DisplayParking()
 
 }
