@@ -23,8 +23,8 @@ type parking struct {
 	parkingAddress string
 	//	parkingEntrance [3]pEntrance
 	carParking  map[Ticket]*slot.Slot
-	vanParking  map[Ticket]slot.Slot
-	bikeParking map[Ticket]slot.Slot
+	vanParking  map[Ticket]*slot.Slot
+	bikeParking map[Ticket]*slot.Slot
 }
 
 // Parking interface provide the list of avialable methods
@@ -47,7 +47,13 @@ func (p *parking) SetParkingCompany(parkingCompany, parkingAddress string) {
 // BuildParkingCompany method will create a parking company instance
 func BuildParkingCompany() Parking {
 	CarParking := make(map[Ticket]*slot.Slot)
-	return &parking{carParking: CarParking}
+	VanParking := make(map[Ticket]*slot.Slot)
+	BikeParking := make(map[Ticket]*slot.Slot)
+	return &parking{
+		carParking:  CarParking,
+		vanParking:  VanParking,
+		bikeParking: BikeParking,
+	}
 }
 
 func createTicketID() Ticket {
@@ -58,13 +64,35 @@ func createTicketID() Ticket {
 // GetParkingTicket builds parking ticket
 func (p *parking) GetParkingTicket(vType, vNumber string) (Ticket, error) {
 	var t Ticket
-	c, err := slot.NewCarSlot()
-	if err != nil {
-		return t, errors.New("no slot available")
+	if vType == "car" {
+		c, err := slot.NewCarSlot()
+		if err != nil {
+			return t, errors.New("no slot available")
+		}
+		c.SetCarSlot(vNumber)
+		t = createTicketID()
+		p.carParking[t] = c
 	}
-	c.SetCarSlot(vNumber)
-	t = createTicketID()
-	p.carParking[t] = c
+
+	if vType == "van" {
+		v, err := slot.NewVanSlot()
+		if err != nil {
+			return t, errors.New("no slot available")
+		}
+		v.SetVanSlot(vNumber)
+		t = createTicketID()
+		p.vanParking[t] = v
+	}
+
+	if vType == "bike" {
+		b, err := slot.NewBikeSlot()
+		if err != nil {
+			return t, errors.New("no slot available")
+		}
+		b.SetBikeSlot(vNumber)
+		t = createTicketID()
+		p.bikeParking[t] = b
+	}
 
 	return t, nil
 }
@@ -81,6 +109,8 @@ func (p *parking) GetVehicle(id string) string {
 func (p *parking) RemoveVehicle(id string) {
 	t := Ticket{ID: id}
 	delete(p.carParking, t)
+	delete(p.vanParking, t)
+	delete(p.bikeParking, t)
 }
 
 func (p *parking) DisplayParking() {

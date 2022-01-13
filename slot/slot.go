@@ -40,7 +40,7 @@ func (s *Slot) SetCarSlot(vNumber string) {
 
 // NewVanSlot will construct slot
 func NewVanSlot() (*Slot, error) {
-	if vanInstanceCnt < 3 {
+	if vanInstanceCnt > 3 {
 		return nil, errors.New("no slot available")
 	}
 	vanInstanceCnt++
@@ -61,7 +61,7 @@ func (s *Slot) SetVanSlot(vNumber string) {
 
 // NewBikeSlot will construct slot
 func NewBikeSlot() (*Slot, error) {
-	if bikeInstanceCnt < 2 {
+	if bikeInstanceCnt > 2 {
 		return nil, errors.New("no slot available")
 	}
 	bikeInstanceCnt++
